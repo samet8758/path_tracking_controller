@@ -10,3 +10,4 @@ b1 = 3;
 a2 = 2 ; 
 b2 = 4 ; 
 c1 = b1-H ; 
+load('path.mat') ; 

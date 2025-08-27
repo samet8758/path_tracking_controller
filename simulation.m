@@ -16,7 +16,7 @@ figure;
 hold on;
 %axis equal;
 grid on;
-
+plot(x',y','b') ; hold on ; 
 
 % Hareket eden öğeleri çizebilmek için çizim nesnelerini oluşturuyoruz
 %h1 = plot(x1(1), y1(1), 'ko', 'MarkerFaceColor', 'k'); % İlk nokta
@@ -32,8 +32,8 @@ h4 = plot(x_b2(1), y_b2(1), 'ro', 'MarkerFaceColor','r') ;
 line1 = plot([x_a1(1) x_b1(1)], [y_a1(1) y_b1(1)], 'k-');   % Bağlantı çizgisi
 line2 = plot([x_a2(1) x_b2(1)], [y_a2(1) y_b2(1)], 'r-'); 
 
-
-v = VideoWriter('simulasyon.avi'); % veya 'simulasyon.mp4'
+filename = 'output.gif' ; 
+%v = VideoWriter('simulasyon.avi'); % veya 'simulasyon.mp4'
 open(v);
 axis([-10 180 -10 180]) ; 
 % Animasyonu başlatmak
@@ -47,7 +47,18 @@ for i = 2:length(t)
     set(line2, 'XData', [x_a2(i), x_b2(i)], 'YData', [y_a2(i), y_b2(i)]);
     % Grafik yenileme
     drawnow;
-    pause(1/200);  % Hareketin daha düzgün görünmesi için kısa bir gecikme
-    frame = getframe(gcf);
-    writeVideo(v, frame);
+    pause(1/2000);  % Hareketin daha düzgün görünmesi için kısa bir gecikme
+
+    frame = getframe(gcf) ; 
+    im = frame2im(frame) ; 
+    [A,map] = rgb2ind(im,256) ; 
+
+    if (i==2)
+        imwrite(A,map,filename,'gif','LoopCount',inf,'DelayTime',0) ; 
+    else
+        imwrite(A,map,filename,'gif','WriteMode','append','DelayTime',0) ; 
+    end
+
+ %   frame = getframe(gcf);
+ %   writeVideo(v, frame);
 end
