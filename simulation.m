@@ -32,9 +32,12 @@ h4 = plot(x_b2(1), y_b2(1), 'ro', 'MarkerFaceColor','r') ;
 line1 = plot([x_a1(1) x_b1(1)], [y_a1(1) y_b1(1)], 'k-');   % Bağlantı çizgisi
 line2 = plot([x_a2(1) x_b2(1)], [y_a2(1) y_b2(1)], 'r-'); 
 
-filename = 'output.gif' ; 
+filename = 'output.mp4' ;
+v = VideoWriter(filename, 'MPEG-4');  % Video nesnesi oluştur
+v.FrameRate = 100;  % Saniyedeki kare sayısı (fps)
+open(v);  % Video dosyasını aç
 %v = VideoWriter('simulasyon.avi'); % veya 'simulasyon.mp4'
-open(v);
+%open(v);
 axis([-10 180 -10 180]) ; 
 % Animasyonu başlatmak
 for i = 2:length(t)
@@ -50,15 +53,21 @@ for i = 2:length(t)
     pause(1/2000);  % Hareketin daha düzgün görünmesi için kısa bir gecikme
 
     frame = getframe(gcf) ; 
-    im = frame2im(frame) ; 
-    [A,map] = rgb2ind(im,256) ; 
 
-    if (i==2)
-        imwrite(A,map,filename,'gif','LoopCount',inf,'DelayTime',0) ; 
-    else
-        imwrite(A,map,filename,'gif','WriteMode','append','DelayTime',0) ; 
-    end
+    frame = getframe(gcf);
+    
+    % Videoya ekle
+    writeVideo(v, frame);
+end
+    % im = frame2im(frame) ; 
+    % [A,map] = rgb2ind(im,256) ; 
+    % 
+    % if (i==2)
+    %     imwrite(A,map,filename,'gif','LoopCount',inf,'DelayTime',0) ; 
+    % else
+    %     imwrite(A,map,filename,'gif','WriteMode','append','DelayTime',0) ; 
+    % end
 
  %   frame = getframe(gcf);
  %   writeVideo(v, frame);
-end
+close(v) ; 
