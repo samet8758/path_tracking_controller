@@ -35,7 +35,7 @@ line2 = plot([x_a2(1) x_b2(1)], [y_a2(1) y_b2(1)], 'r-');
 
 v = VideoWriter('simulasyon.avi'); % veya 'simulasyon.mp4'
 open(v);
-
+axis([-10 180 -10 180]) ; 
 % Animasyonu başlatmak
 for i = 2:length(t)
     % Grafik üzerinde güncellemeler
@@ -47,7 +47,7 @@ for i = 2:length(t)
     set(line2, 'XData', [x_a2(i), x_b2(i)], 'YData', [y_a2(i), y_b2(i)]);
     % Grafik yenileme
     drawnow;
-    pause(0.05);  % Hareketin daha düzgün görünmesi için kısa bir gecikme
+    pause(1/200);  % Hareketin daha düzgün görünmesi için kısa bir gecikme
     frame = getframe(gcf);
     writeVideo(v, frame);
 end
