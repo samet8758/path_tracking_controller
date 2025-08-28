@@ -16,7 +16,7 @@ figure;
 hold on;
 %axis equal;
 grid on;
-plot(x',y','b') ; hold on ; 
+plot(xSim.signals.values,ySim.signals.values,'b') ; hold on ; 
 
 % Hareket eden öğeleri çizebilmek için çizim nesnelerini oluşturuyoruz
 %h1 = plot(x1(1), y1(1), 'ko', 'MarkerFaceColor', 'k'); % İlk nokta
